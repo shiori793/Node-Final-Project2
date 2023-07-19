@@ -35,11 +35,7 @@ const EditPost = () => {
                 //         author: author._id
                 //     });
                 // }
-                const response = await axios({
-                    url: url,
-                    method: 'get',
-                    withCredentials: true
-                });
+                const response = await axios.get(url, { withCredentials: true });
                 if(response.status === 200){
                     const { _id, title, summary, file, content, author } = await response.data;
                     setPostData({
@@ -94,12 +90,7 @@ const EditPost = () => {
             // if(response.ok){
             //     navigate("/index");
             // }
-            const response = await axios({
-                url: url,
-                method: 'put',
-                data: data,
-                withCredentials: true
-            });
+            const response = await axios.put(url, data, { withCredentials: true });
             if(response.status === 200){
                 navigate("/index");
             }

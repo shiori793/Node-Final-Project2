@@ -19,11 +19,7 @@ const IndexPage = () => {
                 //     const data = await response.json();
                 //     setPosts(data);
                 // }
-                const response = await axios({
-                    url: url,
-                    method: 'get',
-                    withCredentials: true
-                });
+                const response = await axios.get(url, { withCredentials: true });
                 if(response.status === 200){
                     const data = await response.data;
                     setPosts(data);

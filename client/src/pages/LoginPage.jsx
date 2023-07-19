@@ -35,12 +35,6 @@ const LoginPage = () => {
             //     body: JSON.stringify(userData),
             //     credentials: 'include'
             // })
-            const response = await axios({
-                url: url,
-                method: 'post',
-                data: userData,
-                withCredentials: true
-            });
             // if(response.ok){
             //     const data = await response.json();
             //     setUser({
@@ -51,6 +45,7 @@ const LoginPage = () => {
             //     })
             //     navigate("/index");
             // }
+            const response = await axios.post(url, userData, { withCredentials: true });
             if(response.status === 200){
                 const data = await response.data;
                 setUser({

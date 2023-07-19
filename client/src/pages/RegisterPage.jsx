@@ -29,14 +29,10 @@ const RegisterPage = () => {
             //     headers: {"Content-Type": "application/json"},
             //     body: JSON.stringify(userData),
             // })
-            const response = await axios({
-                url: url,
-                method: 'post',
-                data: userData
-            });
             // if(response.ok){
             //     navigate("/");
             // }
+            const response = await axios.post(url, userData);
             if(response.status === 200){
                 navigate("/");
             }

@@ -31,11 +31,7 @@ const PostPage = () => {
                 //     setCreatedAt(formedDate);
                 //     setAuthor(data.author);
                 // }
-                const response = await axios({
-                    url: url,
-                    method: 'get',
-                    withCredentials: true
-                });
+                const response = await axios.get(url,{ withCredentials: true });
                 if(response.status === 200){
                     const data = await response.data;
                     setPostData(data);
@@ -63,12 +59,7 @@ const PostPage = () => {
             // if(response.ok){
             //     navigate("/index");
             // }
-            const response = await axios({
-                url: url,
-                method: 'delete',
-                data: {author: author._id},
-                withCredentials: true
-            });
+            const response = await axios.delete(url, {author: author._id}, { withCredentials: true });
             if(response.status === 200){
                 navigate("/index");
             }

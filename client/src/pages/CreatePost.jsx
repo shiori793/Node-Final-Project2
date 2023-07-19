@@ -53,12 +53,7 @@ const CreatePost = () => {
             // if(response.ok){
             //     navigate("/index");
             // }
-            const response = await axios({
-                url: url,
-                method: 'post',
-                data: data,
-                withCredentials: true
-            });
+            const response = await axios.post(url, data, { withCredentials: true });
             if(response.status === 200){
                 navigate("/index");
             }

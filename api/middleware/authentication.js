@@ -17,7 +17,11 @@ const authentication = (req, res, next) => {
                 isAdmin: user.isAdmin
             };
     
-            res.cookie("token", token, { maxAge: process.env.EXPIRES_IN * 1000 })
+            res.cookie("token", token, { 
+                maxAge: process.env.EXPIRES_IN * 1000,
+                secure: true,
+                httpOnly: true
+            })
             next();
         }
     }

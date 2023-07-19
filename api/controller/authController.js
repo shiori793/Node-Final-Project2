@@ -62,7 +62,11 @@ const loginController = async (req, res, next) => {
         });
 
         res
-          .cookie("token", token, { httpOnly: true, maxAge: process.env.EXPIRES_IN * 1000 })
+          .cookie("token", token, { 
+            httpOnly: true, 
+            secure: true,
+            maxAge: process.env.EXPIRES_IN * 1000 
+          })
           .status(200)
           .json({
             id: user._id,
@@ -77,8 +81,8 @@ const loginController = async (req, res, next) => {
 };
 
 const logoutController = (req, res) => {
-  res.
-    cookie("token", '')
+  res
+    .clearCookie("token")
     .status(200)
     .json('Successfully log out');
 }

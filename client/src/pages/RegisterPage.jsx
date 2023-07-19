@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterPage = () => {
 
@@ -23,12 +24,20 @@ const RegisterPage = () => {
         e.preventDefault();
         const url = `/api/auth/register`
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(userData),
-            })
-            if(response.ok){
+            // const response = await fetch(url, {
+            //     method: 'POST',
+            //     headers: {"Content-Type": "application/json"},
+            //     body: JSON.stringify(userData),
+            // })
+            const response = await axios({
+                url: url,
+                method: 'post',
+                data: userData
+            });
+            // if(response.ok){
+            //     navigate("/");
+            // }
+            if(response.status === 200){
                 navigate("/");
             }
         } catch (e) {

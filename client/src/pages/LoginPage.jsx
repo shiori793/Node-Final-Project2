@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import UserContext from "../context/UserContext";
+import axios from 'axios';
 
 const LoginPage = () => {
 
@@ -25,17 +26,33 @@ const LoginPage = () => {
         e.preventDefault();
         const url = `/api/auth/login`
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(userData),
-                credentials: 'include'
-            })
-            if(response.ok){
-                const data = await response.json();
+            // const response = await fetch(url, {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Accept": "application/json"
+            //     },
+            //     body: JSON.stringify(userData),
+            //     credentials: 'include'
+            // })
+            const response = await axios({
+                url: url,
+                method: 'post',
+                data: userData,
+                withCredentials: true
+            });
+            // if(response.ok){
+            //     const data = await response.json();
+            //     setUser({
+            //         id: data.id,
+            //         username: data.username,
+            //         isAdmin: data.isAdmin,
+            //         isLogin: true
+            //     })
+            //     navigate("/index");
+            // }
+            if(response.status === 200){
+                const data = await response.data;
                 setUser({
                     id: data.id,
                     username: data.username,

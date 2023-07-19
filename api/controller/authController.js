@@ -28,7 +28,6 @@ const registerController = (req, res, next) => {
             await newUser.save();
             res
               .status(200)
-              .header('Content-Type', 'application/json')
               .json('User created');
           });
         }
@@ -65,7 +64,6 @@ const loginController = async (req, res, next) => {
         res
           .cookie("token", token, { httpOnly: true, maxAge: process.env.EXPIRES_IN * 1000 })
           .status(200)
-          .header('Content-Type', 'application/json')
           .json({
             id: user._id,
             username: user.username,
@@ -82,7 +80,6 @@ const logoutController = (req, res) => {
   res.
     cookie("token", '')
     .status(200)
-    .header('Content-Type', 'application/json')
     .json('Successfully log out');
 }
 

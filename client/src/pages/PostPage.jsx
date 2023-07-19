@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import UserContext from "../context/UserContext";
+import axios from 'axios';
 
 const PostPage = () => {
 
@@ -17,13 +18,26 @@ const PostPage = () => {
         const url = `/api/post/${id}`
         const fetchData = async () => {
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {"Content-Type": "application/json"},
-                    credentials: 'include'
-                })
-                if(response.ok){
-                    const data = await response.json();
+                // const response = await fetch(url, {
+                //     method: 'GET',
+                //     headers: {"Content-Type": "application/json"},
+                //     credentials: 'include'
+                // })
+                // if(response.ok){
+                //     const data = await response.json();
+                //     setPostData(data);
+                //     const date = new Date(data.createdAt);
+                //     const formedDate = format(date, 'MMM d, yyyy HH:mm');
+                //     setCreatedAt(formedDate);
+                //     setAuthor(data.author);
+                // }
+                const response = await axios({
+                    url: url,
+                    method: 'get',
+                    withCredentials: true
+                });
+                if(response.status === 200){
+                    const data = await response.data;
                     setPostData(data);
                     const date = new Date(data.createdAt);
                     const formedDate = format(date, 'MMM d, yyyy HH:mm');
@@ -41,11 +55,21 @@ const PostPage = () => {
         e.preventDefault();
         const url = `/api/post/delete/${id}`
         try {
-            const response = await fetch(url, {
-                method: 'DELETE',
-                credentials: 'include'
-            })
-            if(response.ok){
+            // const response = await fetch(url, {
+            //     method: 'DELETE',
+            //     body: JSON.stringify({author: author._id}),
+            //     credentials: 'include'
+            // })
+            // if(response.ok){
+            //     navigate("/index");
+            // }
+            const response = await axios({
+                url: url,
+                method: 'delete',
+                data: {author: author._id},
+                withCredentials: true
+            });
+            if(response.status === 200){
                 navigate("/index");
             }
         } catch (e) {

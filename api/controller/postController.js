@@ -73,16 +73,17 @@ const deleteController = async (req, res, next) => {
   try {
 
     const { id } = req.params;
-    const user = req.user;
+    const { author } = req.body;
+    // const user = req.user;
 
-    const post = await Post.findById(id);
+    // const post = await Post.findById(id);
 
-    if(user.id === post.author.toString() || user.isAdmin){
+    // if(user.id === post.author.toString() || user.isAdmin){
       await Post.findByIdAndRemove(id);
-      await User.findByIdAndUpdate(user.id, {$pull: {posts: id}});
-    } else {
-      res.status(401).json("You should login as your user account or admin");
-    }    
+      await User.findByIdAndUpdate(author, {$pull: {posts: id}});
+    // } else {
+    //   res.status(401).json("You should login as your user account or admin");
+    // }    
 
     res.status(200).json('Post deleted');
 

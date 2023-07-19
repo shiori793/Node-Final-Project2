@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Editor from "../components/Editor";
+import axios from 'axios';
 
 const EditPost = () => {
 
@@ -21,13 +22,26 @@ const EditPost = () => {
         const url = `/api/post/${id}`
         const fetchData = async () => {
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {"Content-Type": "application/json"},
-                    credentials: 'include'
-                })
-                if(response.ok){
-                    const { _id, title, summary, file, content, author } = await response.json();
+                // const response = await fetch(url, {
+                //     method: 'GET',
+                //     headers: {"Content-Type": "application/json"},
+                //     credentials: 'include'
+                // })
+                // if(response.ok){
+                //     const { _id, title, summary, file, content, author } = await response.json();
+                //     setPostData({
+                //         id: _id,
+                //         title, summary, file, content,
+                //         author: author._id
+                //     });
+                // }
+                const response = await axios({
+                    url: url,
+                    method: 'get',
+                    withCredentials: true
+                });
+                if(response.status === 200){
+                    const { _id, title, summary, file, content, author } = await response.data;
                     setPostData({
                         id: _id,
                         title, summary, file, content,
@@ -72,12 +86,21 @@ const EditPost = () => {
             data.set(key, postData[key])
         }
         try {
-            const response = await fetch(url, {
-                method: 'PUT',
-                body: data,
-                credentials: 'include'
-            })
-            if(response.ok){
+            // const response = await fetch(url, {
+            //     method: 'PUT',
+            //     body: data,
+            //     credentials: 'include'
+            // })
+            // if(response.ok){
+            //     navigate("/index");
+            // }
+            const response = await axios({
+                url: url,
+                method: 'put',
+                data: data,
+                withCredentials: true
+            });
+            if(response.status === 200){
                 navigate("/index");
             }
         } catch (e) {

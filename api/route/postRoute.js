@@ -23,7 +23,7 @@ router.post("/create",
 );
 
 router.delete("/delete/:id",  
-    authentication,
+    verifyUser,
     deleteController
 );
 

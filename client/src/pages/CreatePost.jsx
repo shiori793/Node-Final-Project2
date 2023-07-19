@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import Editor from "../components/Editor";
+import axios from 'axios';
 
 const CreatePost = () => {
 
@@ -44,12 +45,21 @@ const CreatePost = () => {
             data.set(key, postData[key])
         }
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: data,
-                credentials: 'include'
-            })
-            if(response.ok){
+            // const response = await fetch(url, {
+            //     method: 'POST',
+            //     body: data,
+            //     credentials: 'include'
+            // })
+            // if(response.ok){
+            //     navigate("/index");
+            // }
+            const response = await axios({
+                url: url,
+                method: 'post',
+                data: data,
+                withCredentials: true
+            });
+            if(response.status === 200){
                 navigate("/index");
             }
         } catch (e) {

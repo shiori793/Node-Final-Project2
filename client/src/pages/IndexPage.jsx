@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../components/Post";
-import axios from 'axios';
+import axios from '../utils/axios';
 
 const IndexPage = () => {
 

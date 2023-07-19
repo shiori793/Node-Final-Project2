@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import UserContext from "../context/UserContext";
-import axios from 'axios';
+import axios from '../utils/axios';
 
 const PostPage = () => {
 

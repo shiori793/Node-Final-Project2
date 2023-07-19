@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Editor from "../components/Editor";
-import axios from 'axios';
+import axios from '../utils/axios';
 
 const EditPost = () => {
 

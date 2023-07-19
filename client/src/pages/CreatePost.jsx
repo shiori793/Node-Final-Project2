@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import Editor from "../components/Editor";
-import axios from 'axios';
+import axios from '../utils/axios';
 
 const CreatePost = () => {
 

@@ -2,6 +2,7 @@ import { verifyToken } from "../util/jwtUtil.js";
 
 const authentication = (req, res, next) => {
 
+    console.log(req.token)
     const { token } = req.cookies
 
     if (!token) {

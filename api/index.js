@@ -16,7 +16,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    credentials: true
+    credentials: true,
+    origin: 'https://blog-app-kfp2.onrender.com'
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());

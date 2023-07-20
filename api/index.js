@@ -16,7 +16,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://blog-app-kfp2.onrender.com',
     credentials: true,
     exposedHeaders: 'token'
 }));
@@ -24,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 const connect = async () => {
     try {
@@ -36,6 +36,10 @@ const connect = async () => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoute);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'))
+})
 
 app.listen(PORT, () => {
     connect();

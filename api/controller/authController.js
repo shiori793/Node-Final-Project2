@@ -62,7 +62,7 @@ const loginController = async (req, res, next) => {
         });
 
         req.session.token = token;
-        
+
         res
           // .cookie("token", token, { 
           //   httpOnly: true, 
@@ -83,8 +83,9 @@ const loginController = async (req, res, next) => {
 };
 
 const logoutController = (req, res) => {
+  req.session.token = '';
   res
-    .clearCookie("token")
+    // .clearCookie("token")
     .status(200)
     .json('Successfully log out');
 }

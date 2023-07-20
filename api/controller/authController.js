@@ -61,12 +61,14 @@ const loginController = async (req, res, next) => {
           isAdmin: user.isAdmin
         });
 
+        req.session.token = token;
+        
         res
-          .cookie("token", token, { 
-            httpOnly: true, 
-            secure: true,
-            maxAge: process.env.EXPIRES_IN * 1000 
-          })
+          // .cookie("token", token, { 
+          //   httpOnly: true, 
+          //   secure: true,
+          //   maxAge: process.env.EXPIRES_IN * 1000 
+          // })
           .status(200)
           .json({
             id: user._id,

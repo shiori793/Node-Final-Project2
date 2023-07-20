@@ -2,29 +2,27 @@ import { verifyToken } from "../util/jwtUtil.js";
 
 const authentication = (req, res, next) => {
 
-    console.log(req.cookies)
-    const { token } = req.cookies
+    const { token } = req.session
 
     if (!token) {
-        res.status(401).json("Unauthorized");
-        res.end();
+        return res.status(401).json("Unauthorized");
     } else {
         const user = verifyToken(token);
 
         if (!user) {
-            res.status(401).json("Unauthorized");
-            res.end();
+            return res.status(401).json("Unauthorized");
         } else {
             req.user = {
                 id: user.id,
                 isAdmin: user.isAdmin
             };
     
-            res.cookie("token", token, { 
-                maxAge: process.env.EXPIRES_IN * 1000,
-                secure: true,
-                httpOnly: true
-            })
+            // res.cookie("token", token, { 
+            //     maxAge: process.env.EXPIRES_IN * 1000,
+            //     secure: true,
+            //     httpOnly: true
+            // })
+            req.session.token = token;
             next();
         }
     }

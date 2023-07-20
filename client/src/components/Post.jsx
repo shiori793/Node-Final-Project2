@@ -7,7 +7,7 @@ const Post = ({_id, title, summary, file, author, createdAt}) => {
         <div className="post">
           <div className="image">
             <Link to={`/post/${_id}`}>
-              <img src={process.env.REACT_APP_BASE_URL + '/' + file} alt="No Image" />
+              <img src={'/' + file} alt="No Image" />
             </Link>
           </div>
           <div className="texts">

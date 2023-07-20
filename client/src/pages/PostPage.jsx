@@ -114,7 +114,7 @@ const PostPage = () => {
                 )
             }
             <div className="image">
-                <img src={process.env.REACT_APP_BASE_URL + '/' + postData.file} alt="No Image" />
+                <img src={'/' + postData.file} alt="No Image" />
             </div>
             
             <div className="content" 

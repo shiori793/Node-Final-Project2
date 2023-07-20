@@ -7,7 +7,6 @@ import mongoose from "mongoose";
 import authRoutes from './route/authRoutes.js'
 import postRoute from './route/postRoute.js'
 import path from 'path';
-import session from 'express-session';
 mongoose.set('strictQuery', true);
 
 dotenv.config();
@@ -17,25 +16,14 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
+    origin: 'https://blog-app-kfp2.onrender.com',
     credentials: true,
-    origin: 'https://blog-app-kfp2.onrender.com'
+    exposedHeaders: 'token'
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-app.use(
-    session({
-        resave: false,
-        saveUnintitialized: false,
-        secret: "session",
-        cookie: {
-            maxAge: process.env.EXPIRES_IN * 1000,
-            sameSite: "none",
-            secure: true,
-        }
-    })
-)
 
 const connect = async () => {
     try {

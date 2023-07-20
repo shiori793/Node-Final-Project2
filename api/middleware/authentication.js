@@ -2,7 +2,7 @@ import { verifyToken } from "../util/jwtUtil.js";
 
 const authentication = (req, res, next) => {
 
-    const { token } = req.session
+    const { token } = req.cookies
 
     if (!token) {
         return res.status(401).json("Unauthorized");
@@ -17,12 +17,11 @@ const authentication = (req, res, next) => {
                 isAdmin: user.isAdmin
             };
     
-            // res.cookie("token", token, { 
-            //     maxAge: process.env.EXPIRES_IN * 1000,
-            //     secure: true,
-            //     httpOnly: true
-            // })
-            req.session.token = token;
+            res.cookie("token", token, { 
+                maxAge: process.env.EXPIRES_IN * 1000,
+                secure: true,
+                httpOnly: true
+            })
             next();
         }
     }
